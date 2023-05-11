@@ -1,0 +1,1 @@
+const Mongo = require('../lib/mongo');
