@@ -9,9 +9,9 @@ passport.use(new BasicStrategy(async (email, password, cb) => {
     try {
         const user = await userController.getUser({ email });
 
-        if (!user) return cb(boom.unauthorized(), null);
+        if (!user) return cb(boom.unauthorized('No existe el usuario'), null);
 
-        if (!(bcrypt.compare(password, user.password))) return cb(boom.unauthorized(), null);
+        if (!(await bcrypt.compare(password, user.password))) return cb(boom.unauthorized('Alguna informacion esta incorrecta'), null);
 
         delete user.password;
 

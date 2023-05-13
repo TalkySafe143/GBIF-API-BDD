@@ -9,11 +9,11 @@ async function getUser({ email }) {
 }
 
 async function createUser({ user }) {
-    const { name, email, password } = user;
+    const { name, email, password, isAdmin } = user;
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const createdUserID = await mongo.insert('users', { name, email,  password: hashedPassword });
+    const createdUserID = await mongo.insert('users', { name, email,  password: hashedPassword, isAdmin });
 
     return createdUserID;
 }

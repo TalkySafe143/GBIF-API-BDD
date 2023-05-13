@@ -16,8 +16,8 @@ passport.use(new Strategy({
 
         delete user.password;
 
-        cb(null, { ...user, scopes: payload.scopes })
+        return cb(null, { ...user, scopes: payload.scopes })
     } catch (e) {
-        cb(e, null);
+        return cb(e, null);
     }
 }))
