@@ -6,8 +6,6 @@ const Mongo = require('../lib/mongo/mongo.js');
 const generateRandomToken = () => crypto.randomBytes(32).toString('hex');
 
 const adminScopes = [
-    'signin:auth',
-    'signup:auth',
     'read:cameraDP',
     'create:cameraDP',
     'update:cameraDP',
@@ -15,16 +13,15 @@ const adminScopes = [
     'read:users',
     'create:users',
     'update:users',
-    'delete: users'
+    'delete:users'
 ];
 
 const userScope = [
-    'signin:auth',
-    'signup:auth',
+    'read:cameraDP',
     'read:users',
     'create:users',
     'update:users',
-    'delete: users'
+    'delete:users'
 ]
 
 const apiKeys = [

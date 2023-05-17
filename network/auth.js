@@ -62,8 +62,6 @@ router.post('/sign-up', validationSchema(createUserSchema) ,async (req, res, nex
     try {
         const userCreated = await userController.getUser({ email: user.email });
 
-        console.log(userCreated);
-
         if (userCreated) return next(boom.badRequest('Este usuario ya esta creado'));
 
         const createdUserID = await userController.createUser({ user });

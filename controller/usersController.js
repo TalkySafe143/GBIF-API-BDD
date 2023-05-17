@@ -1,7 +1,17 @@
 const Mongo = require('../lib/mongo/mongo');
 const bcrypt = require('bcrypt')
+const { ObjectId } = require("mongodb");
 
 const mongo = new Mongo();
+
+async function getAllUsers() {
+    return await mongo.getAll('users', {});
+}
+
+async function getOneUserWithID({ id }) {
+    const [user] = await mongo.getAll('users', { _id:   new ObjectId(id) });
+    return user;
+}
 
 async function getUser({ email }) {
     const [ user ] = await mongo.getAll('users', { email });
@@ -28,4 +38,14 @@ async function getOrCreateUser({ user }) {
     return await getUser({ email: user.email });
 }
 
-module.exports = { getUser, createUser, getOrCreateUser };
+async function updateUser({ userID, data }) {
+    const updatedMovieId = await mongo.update('users', userID, data);
+    return updatedMovieId;
+}
+
+async function deleteUser({ userID }) {
+    const deletedUser = await mongo.delete('users', userID);
+    return deletedUser;
+}
+
+module.exports = { getUser, createUser, getOrCreateUser, updateUser, deleteUser, getAllUsers, getOneUserWithID };

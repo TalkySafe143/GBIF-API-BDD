@@ -12,7 +12,7 @@ passport.use(new Strategy({
     try {
         const user = await userController.getUser({ email: payload.email });
 
-        if (!user) return cb(boom.unauthorized(), null);
+        if (!user) return cb(boom.unauthorized('No tiene JWT'), null);
 
         delete user.password;
 
