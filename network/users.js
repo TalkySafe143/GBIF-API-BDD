@@ -19,6 +19,15 @@ router.get('/', passport.authenticate('jwt', { session: false }), validateScopes
     }
 })
 
+router.get('/me', passport.authenticate('jwt', { session: false }), validateScopes(['read:users']), async (req, res, next) => {
+    try {
+        const data = await userController.getUser({ email: req.user.email });
+        responses.successResponse(req, res, data, 200);
+    } catch (e) {
+        next(e);
+    }
+})
+
 router.get('/:email', passport.authenticate('jwt', { session: false }), validateScopes(['read:users']) , async (req, res, next) => {
     try {
         const data = await userController.getUser(req.params);

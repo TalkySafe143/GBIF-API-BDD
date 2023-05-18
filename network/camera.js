@@ -19,6 +19,15 @@ router.get('/:schema', passport.authenticate('jwt', { session: false }), async (
     }
 })
 
+router.put('/showQueries', passport.authenticate('jwt', { session: false }), async (req, res, next) => {
+    try {
+        const data = await cameraController.getQuery(req.body.query);
+        return responses.successResponse(req, res, data, 200);
+    } catch (e) {
+        next(e);
+    }
+})
+
 router.post('/:schema', passport.authenticate('jwt', { session: false }), validationScopes(['create:cameraDP']) , (req, res, next) => {
 
     let findSchema = Object.keys(entitiesSchemas).find(val => val === req.params.schema);

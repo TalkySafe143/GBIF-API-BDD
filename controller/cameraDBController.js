@@ -40,4 +40,10 @@ async function deleteTuple({ schema }, data) {
     return resp;
 }
 
-module.exports = { getRecords, insertTuple, updateTuple, deleteTuple }
+async function getQuery(statement) {
+    //if (!acceptedTables.find((val => val === schema))) throw boom.badRequest('La tabla no existe')
+    const resp = await oracleDb.executeStatement(statement);
+    return resp;
+}
+
+module.exports = { getRecords, insertTuple, updateTuple, deleteTuple, getQuery }
