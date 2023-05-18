@@ -1,4 +1,5 @@
 /node_modules
 /.idea
 .env
-DDL.ddl
+*.ddl
+*.sql
